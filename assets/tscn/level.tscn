@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://cthrxj3w3udey"]
+
+[ext_resource type="PackedScene" uid="uid://cig3f0gi3aucv" path="res://assets/tscn/player.tscn" id="1_ursuc"]
+[ext_resource type="Script" path="res://assets/scripts/canvas_layer.gd" id="3_8k7qc"]
+[ext_resource type="PackedScene" uid="uid://brosm8tnxjdu3" path="res://assets/tscn/enemy.tscn" id="3_64ahr"]
+[ext_resource type="FontFile" uid="uid://d28ttbgn31qte" path="res://assets/fonts/Nineteen Eighty Seven.otf" id="4_ylq71"]
+[ext_resource type="PackedScene" uid="uid://dc2p1ww4sqh68" path="res://assets/tscn/wall.tscn" id="5_daio1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tw6as"]
+bg_color = Color(1, 0.14902, 0.454902, 1)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ursuc")]
+collision_mask = 5
+
+[node name="EnemySpawnTimer" type="Timer" parent="Player"]
+wait_time = 4.0
+autostart = true
+
+[node name="wall" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(-200, 9)
+scale = Vector2(1, 20)
+collision_layer = 4
+
+[node name="wall2" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(200, 11)
+scale = Vector2(1, 20)
+collision_layer = 4
+
+[node name="wall5" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(56, 51)
+scale = Vector2(1, 10.325)
+collision_layer = 4
+
+[node name="wall6" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(-76, 51)
+scale = Vector2(1, 10.325)
+collision_layer = 4
+
+[node name="wall9" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(-86, -67)
+scale = Vector2(1, 5.885)
+collision_layer = 4
+
+[node name="wall10" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(67, -63)
+scale = Vector2(1, 5.885)
+collision_layer = 4
+
+[node name="wall3" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(-6, 173)
+scale = Vector2(30, 1)
+collision_layer = 4
+
+[node name="wall4" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(4, -153)
+scale = Vector2(30, 1)
+collision_layer = 4
+
+[node name="wall7" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(-8, -106)
+scale = Vector2(10.435, 1)
+collision_layer = 4
+
+[node name="wall8" parent="." instance=ExtResource("5_daio1")]
+position = Vector2(-11, -24)
+scale = Vector2(10.435, 1)
+collision_layer = 4
+
+[node name="Enemy" parent="." instance=ExtResource("3_64ahr")]
+position = Vector2(-55, 3)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_64ahr")]
+position = Vector2(20, 72)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_64ahr")]
+position = Vector2(98, -49)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_64ahr")]
+position = Vector2(-127, -26)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_8k7qc")
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 4.0
+theme_override_fonts/font = ExtResource("4_ylq71")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/background = SubResource("StyleBoxFlat_tw6as")
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 6.0
+offset_right = 398.0
+offset_bottom = 61.0
+theme_override_fonts/normal_font = ExtResource("4_ylq71")
+theme_override_font_sizes/normal_font_size = 20
+text = "SCORE:"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 40.0
+offset_right = 398.0
+offset_bottom = 95.0
+theme_override_fonts/normal_font = ExtResource("4_ylq71")
+theme_override_font_sizes/normal_font_size = 20
+text = "ROUND:"
+
+[node name="SpawnEnemiesReference" type="Marker2D" parent="."]
+position = Vector2(4, -52)
+
+[connection signal="timeout" from="Player/EnemySpawnTimer" to="Player" method="_on_enemy_spawn_timer_timeout"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://cig3f0gi3aucv"]
+
+[ext_resource type="Script" path="res://assets/scripts/character_body_2d.gd" id="1_lvwh1"]
+[ext_resource type="Texture2D" uid="uid://bbd6sssm4lmnf" path="res://assets/sprites/testplayer.png" id="2_1pfqe"]
+[ext_resource type="Texture2D" uid="uid://cm6xomy8q0aaj" path="res://assets/sprites/guntest.png" id="3_gxaer"]
+[ext_resource type="Texture2D" uid="uid://bg61p4kj5apv2" path="res://assets/sprites/shoot.png" id="4_n577t"]
+[ext_resource type="AudioStream" uid="uid://dpkg0h1lgqqy4" path="res://assets/sounds/big-round-soft-kick-drum-87898.mp3" id="5_dtmvw"]
+[ext_resource type="AudioStream" uid="uid://b2prhtf10tsax" path="res://assets/sounds/shooting-sound-fx-159024.mp3" id="5_est11"]
+[ext_resource type="AudioStream" uid="uid://3830mi2jv651" path="res://assets/sounds/success_02-68338.mp3" id="6_rkbxv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_04jc2"]
+size = Vector2(8, 10)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_lvwh1")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_1pfqe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_04jc2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="GunSprite" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("3_gxaer")
+offset = Vector2(5.66, 0)
+
+[node name="Shoot" type="Sprite2D" parent="GunSprite"]
+z_as_relative = false
+position = Vector2(100.75, -2)
+scale = Vector2(1.825, 0.545)
+texture = ExtResource("4_n577t")
+
+[node name="RayCast2D" type="RayCast2D" parent="GunSprite"]
+target_position = Vector2(191, -2)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="TimeShowShoot" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="CooldownShoot" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="roundsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dtmvw")
+
+[node name="shootsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_est11")
+
+[node name="killsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rkbxv")

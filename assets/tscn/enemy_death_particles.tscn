@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://w01rmoae0qnr"]
+
+[ext_resource type="Script" path="res://assets/scripts/temp_particles.gd" id="1_cwm1i"]
+[ext_resource type="Texture2D" uid="uid://b6luu4k5d13bm" path="res://assets/sprites/particledestroy.png" id="1_opotu"]
+
+[sub_resource type="Curve" id="Curve_i0sip"]
+_data = [Vector2(0.362676, 1), 0.0, 0.0, 0, 0, Vector2(0.735915, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qvsy3"]
+curve = SubResource("Curve_i0sip")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvftx"]
+particle_flag_disable_z = true
+angle_min = -70.5
+angle_max = 153.0
+spread = 180.0
+flatness = 0.405
+initial_velocity_min = 36.23
+initial_velocity_max = 340.58
+gravity = Vector3(0, 98, 0)
+alpha_curve = SubResource("CurveTexture_qvsy3")
+hue_variation_min = -0.03
+hue_variation_max = 0.08
+turbulence_enabled = true
+
+[node name="EnemyDeathParticles" type="GPUParticles2D"]
+emitting = false
+amount = 60
+process_material = SubResource("ParticleProcessMaterial_rvftx")
+texture = ExtResource("1_opotu")
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 0.19
+trail_enabled = true
+trail_lifetime = 0.01
+trail_sections = 4
+trail_section_subdivisions = 2
+script = ExtResource("1_cwm1i")
